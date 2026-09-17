@@ -54,32 +54,37 @@ export default function CartPage() {
       return;
     }
 
-    const itemLines = items
-      .map((item, index) => {
-        const lineTotal = formatNaira(item.product.price_kobo * item.quantity);
-        const flavor = item.selectedFlavor ? ` (Flavor: ${item.selectedFlavor})` : '';
-        const note = item.customMessage ? ` [Note: ${item.customMessage}]` : '';
-        return `${index + 1}. ${item.product.name}${flavor}${note} — Qty: ${item.quantity} — ${lineTotal}`;
-      })
-      .join('\n');
+    const itemLines: string[] = [];
+    items.forEach((item, index) => {
+      const lineTotal = formatNaira(item.product.price_kobo * item.quantity);
+      itemLines.push(`${index + 1}. ${item.product.name} - Qty ${item.quantity} - ${lineTotal}`);
+      if (item.selectedFlavor) {
+        itemLines.push(`   Flavor: ${item.selectedFlavor}`);
+      }
+      if (item.customMessage) {
+        itemLines.push(`   Note: ${item.customMessage}`);
+      }
+      itemLines.push('');
+    });
 
     const messageLines = [
-      'Hello Mesxico Cakes & Nuts! I would like to place an order for:',
+      "Hi Mesxico Cakes & Nuts! I'd like to place an order for:",
       '',
-      itemLines,
-      '',
-      `Items Subtotal: ${formatNaira(totalKobo)}`,
-      `Delivery Fee: ${formatNaira(STANDARD_DELIVERY_FEE_KOBO)}`,
+      ...itemLines,
+      `Subtotal: ${formatNaira(totalKobo)}`,
+      `Delivery fee: ${formatNaira(STANDARD_DELIVERY_FEE_KOBO)}`,
       `Total: ${formatNaira(grandTotalKobo)}`,
       '',
       `Name: ${customerName}`,
       `Phone: ${customerPhone}`,
-      `Delivery Address: ${deliveryAddress}`,
+      `Address: ${deliveryAddress}`,
     ];
 
     if (deliveryNotes) {
       messageLines.push(`Notes: ${deliveryNotes}`);
     }
+
+    messageLines.push('', 'Thank you!');
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(messageLines.join('\n'))}`;
 
