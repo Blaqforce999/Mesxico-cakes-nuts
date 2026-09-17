@@ -1,0 +1,221 @@
+/**
+ * ==============================================================================
+ * DESIGN TOKENS - CSS VARIABLES
+ * Generated on: 2026-09-07T14:38:35.563Z
+ * 
+ * Sources:
+ * - Colors: Light.tokens.json (Color Roles only; primitives excluded for UI)
+ * - Typography: Default.tokens.json
+ * - Spacing & Borders: spacing-border-token.json
+ * ==============================================================================
+ */
+
+:root {
+  /* ==========================================================================
+     COLOR ROLES (Semantic UI Colors)
+     Note: In this color system, only color roles are used by the UI components.
+     Primitive colors are excluded to maintain semantic design abstraction.
+     ========================================================================== */
+  --color-primary                    : #BA1620; /* Role: primary */
+  --color-on-primary                 : #FFFFFF; /* Role: on-primary */
+  --color-primary-container          : #FFDAD9; /* Role: primary-container */
+  --color-on-primary-container       : #410006; /* Role: on-primary-container */
+  --color-secondary                  : #006D3B; /* Role: secondary */
+  --color-on-secondary               : #FFFFFF; /* Role: on-secondary */
+  --color-secondary-container        : #92F7B6; /* Role: secondary-container */
+  --color-on-secondary-container     : #00210F; /* Role: on-secondary-container */
+  --color-background                 : #FFFBFB; /* Role: background */
+  --color-on-background              : #201A1A; /* Role: on-background */
+  --color-surface                    : #FFFBFB; /* Role: surface */
+  --color-on-surface                 : #201A1A; /* Role: on-surface */
+  --color-surface-variant            : #F3DDDE; /* Role: surface-variant */
+  --color-on-surface-variant         : #524344; /* Role: on-surface-variant */
+  --color-outline                    : #857374; /* Role: outline */
+  --color-outline-variant            : #D7C1C2; /* Role: outline-variant */
+  --color-error                      : #B3261E; /* Role: error */
+  --color-on-error                   : #FFFFFF; /* Role: on-error */
+  --color-error-container            : #F9DEDC; /* Role: error-container */
+  --color-on-error-container         : #410E0B; /* Role: on-error-container */
+
+  /* ==========================================================================
+     FONT FAMILIES
+     ========================================================================== */
+  --font-family-display              : 'Fraunces', Georgia, serif;
+  --font-family-body                 : 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* ==========================================================================
+     TYPOGRAPHY TOKENS (Font Family, Weight, Size, Line Height, Letter Spacing)
+     ========================================================================== */
+
+  /* --- DISPLAY --- */
+  --typography-display-large-font-family        : 'Fraunces', Georgia, serif;
+  --typography-display-large-font-weight        : 700; /* Bold */
+  --typography-display-large-font-size          : 57px;
+  --typography-display-large-line-height        : 64px;
+  --typography-display-large-letter-spacing     : -0.25px;
+  --typography-display-medium-font-family       : 'Fraunces', Georgia, serif;
+  --typography-display-medium-font-weight       : 600; /* SemiBold */
+  --typography-display-medium-font-size         : 45px;
+  --typography-display-medium-line-height       : 52px;
+  --typography-display-medium-letter-spacing    : 0px;
+  --typography-display-small-font-family        : 'Fraunces', Georgia, serif;
+  --typography-display-small-font-weight        : 600; /* SemiBold */
+  --typography-display-small-font-size          : 36px;
+  --typography-display-small-line-height        : 44px;
+  --typography-display-small-letter-spacing     : 0px;
+
+  /* --- HEADLINE --- */
+  --typography-headline-large-font-family       : 'Fraunces', Georgia, serif;
+  --typography-headline-large-font-weight       : 600; /* SemiBold */
+  --typography-headline-large-font-size         : 32px;
+  --typography-headline-large-line-height       : 40px;
+  --typography-headline-large-letter-spacing    : 0px;
+  --typography-headline-medium-font-family      : 'Fraunces', Georgia, serif;
+  --typography-headline-medium-font-weight      : 600; /* SemiBold */
+  --typography-headline-medium-font-size        : 28px;
+  --typography-headline-medium-line-height      : 36px;
+  --typography-headline-medium-letter-spacing   : 0px;
+  --typography-headline-small-font-family       : 'Fraunces', Georgia, serif;
+  --typography-headline-small-font-weight       : 500; /* Medium */
+  --typography-headline-small-font-size         : 24px;
+  --typography-headline-small-line-height       : 32px;
+  --typography-headline-small-letter-spacing    : 0px;
+
+  /* --- TITLE --- */
+  --typography-title-large-font-family          : 'Fraunces', Georgia, serif;
+  --typography-title-large-font-weight          : 600; /* SemiBold */
+  --typography-title-large-font-size            : 22px;
+  --typography-title-large-line-height          : 28px;
+  --typography-title-large-letter-spacing       : 0px;
+  --typography-title-medium-font-family         : 'Fraunces', Georgia, serif;
+  --typography-title-medium-font-weight         : 600; /* SemiBold */
+  --typography-title-medium-font-size           : 16px;
+  --typography-title-medium-line-height         : 24px;
+  --typography-title-medium-letter-spacing      : 0.15px;
+  --typography-title-small-font-family          : 'Fraunces', Georgia, serif;
+  --typography-title-small-font-weight          : 500; /* Medium */
+  --typography-title-small-font-size            : 14px;
+  --typography-title-small-line-height          : 20px;
+  --typography-title-small-letter-spacing       : 0.1px;
+
+  /* --- BODY --- */
+  --typography-body-large-font-family           : 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-body-large-font-weight           : 400; /* Regular */
+  --typography-body-large-font-size             : 16px;
+  --typography-body-large-line-height           : 24px;
+  --typography-body-large-letter-spacing        : 0.5px;
+  --typography-body-medium-font-family          : 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-body-medium-font-weight          : 400; /* Regular */
+  --typography-body-medium-font-size            : 14px;
+  --typography-body-medium-line-height          : 20px;
+  --typography-body-medium-letter-spacing       : 0.25px;
+  --typography-body-small-font-family           : 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-body-small-font-weight           : 400; /* Regular */
+  --typography-body-small-font-size             : 12px;
+  --typography-body-small-line-height           : 16px;
+  --typography-body-small-letter-spacing        : 0.4px;
+
+  /* --- LABEL --- */
+  --typography-label-large-font-family          : 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-label-large-font-weight          : 600; /* SemiBold */
+  --typography-label-large-font-size            : 14px;
+  --typography-label-large-line-height          : 20px;
+  --typography-label-large-letter-spacing       : 0.1px;
+  --typography-label-medium-font-family         : 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-label-medium-font-weight         : 600; /* SemiBold */
+  --typography-label-medium-font-size           : 12px;
+  --typography-label-medium-line-height         : 16px;
+  --typography-label-medium-letter-spacing      : 0.5px;
+  --typography-label-small-font-family          : 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-label-small-font-weight          : 500; /* Medium */
+  --typography-label-small-font-size            : 11px;
+  --typography-label-small-line-height          : 16px;
+  --typography-label-small-letter-spacing       : 0.5px;
+
+  /* ==========================================================================
+     TYPOGRAPHY COMPOSITE SHORTHANDS (font: weight size/line-height family)
+     ========================================================================== */
+  --typography-display-large         : 700 57px/64px 'Fraunces', Georgia, serif;
+  --typography-display-medium        : 600 45px/52px 'Fraunces', Georgia, serif;
+  --typography-display-small         : 600 36px/44px 'Fraunces', Georgia, serif;
+  --typography-headline-large        : 600 32px/40px 'Fraunces', Georgia, serif;
+  --typography-headline-medium       : 600 28px/36px 'Fraunces', Georgia, serif;
+  --typography-headline-small        : 500 24px/32px 'Fraunces', Georgia, serif;
+  --typography-title-large           : 600 22px/28px 'Fraunces', Georgia, serif;
+  --typography-title-medium          : 600 16px/24px 'Fraunces', Georgia, serif;
+  --typography-title-small           : 500 14px/20px 'Fraunces', Georgia, serif;
+  --typography-body-large            : 400 16px/24px 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-body-medium           : 400 14px/20px 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-body-small            : 400 12px/16px 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-label-large           : 600 14px/20px 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-label-medium          : 600 12px/16px 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --typography-label-small           : 500 11px/16px 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* ==========================================================================
+     SPACING TOKENS
+     ========================================================================== */
+  --spacing-0         : 0px;
+  --spacing-1         : 1px;
+  --spacing-2         : 2px;
+  --spacing-4         : 4px;
+  --spacing-6         : 6px;
+  --spacing-8         : 8px;
+  --spacing-10        : 10px;
+  --spacing-12        : 12px;
+  --spacing-14        : 14px;
+  --spacing-16        : 16px;
+  --spacing-18        : 18px;
+  --spacing-20        : 20px;
+  --spacing-24        : 24px;
+  --spacing-28        : 28px;
+  --spacing-32        : 32px;
+  --spacing-36        : 36px;
+  --spacing-40        : 40px;
+  --spacing-44        : 44px;
+  --spacing-48        : 48px;
+  --spacing-52        : 52px;
+  --spacing-56        : 56px;
+  --spacing-60        : 60px;
+  --spacing-64        : 64px;
+  --spacing-72        : 72px;
+  --spacing-80        : 80px;
+  --spacing-88        : 88px;
+  --spacing-96        : 96px;
+  --spacing-104       : 104px;
+  --spacing-112       : 112px;
+  --spacing-120       : 120px;
+  --spacing-128       : 128px;
+  --spacing-144       : 144px;
+  --spacing-160       : 160px;
+  --spacing-176       : 176px;
+  --spacing-192       : 192px;
+  --spacing-208       : 208px;
+  --spacing-224       : 224px;
+  --spacing-240       : 240px;
+  --spacing-256       : 256px;
+  --spacing-288       : 288px;
+  --spacing-320       : 320px;
+  --spacing-384       : 384px;
+  --spacing-448       : 448px;
+  --spacing-512       : 512px;
+
+  /* ==========================================================================
+     BORDER WIDTH TOKENS
+     ========================================================================== */
+  --border-width-none      : 0px;
+  --border-none            : 0px;
+  --border-width-xs        : 0.5px;
+  --border-xs              : 0.5px;
+  --border-width-sm        : 0.7px;
+  --border-sm              : 0.7px;
+  --border-width-md        : 1px;
+  --border-md              : 1px;
+  --border-width-lg        : 1.5px;
+  --border-lg              : 1.5px;
+  --border-width-xl        : 2px;
+  --border-xl              : 2px;
+  --border-width-2xl       : 3px;
+  --border-2xl             : 3px;
+  --border-width-3xl       : 4px;
+  --border-3xl             : 4px;
+}
