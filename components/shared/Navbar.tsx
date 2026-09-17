@@ -4,10 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag, Menu, X, User, LogOut } from 'lucide-react';
+import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useCartStore } from '@/lib/cart/cart-store';
-import { useModalStore } from '@/lib/modal-store';
-import { createClient } from '@/lib/supabase/client';
 
 const NAV_LINKS = [
   { id: 'hero' as const, label: 'Home', href: '/#hero' },
@@ -17,14 +15,11 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<'hero' | 'about' | 'contact'>('hero');
   const pathname = usePathname();
   const items = useCartStore((state) => state.items);
   const openCart = useCartStore((state) => state.openCart);
-  const openAuthModal = useModalStore((state) => state.openAuthModal);
 
   const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -59,22 +54,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScrollSpy);
   }, [pathname]);
 
-  useEffect(() => {
-    const supabase = createClient();
-
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data?.user ?? null);
-    });
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
-
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: 'hero' | 'about' | 'contact') => {
     if (pathname === '/') {
       e.preventDefault();
@@ -87,14 +66,6 @@ export function Navbar() {
     } else {
       setMobileMenuOpen(false);
     }
-  };
-
-  const handleSignOut = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    setUser(null);
-    setUserMenuOpen(false);
-    setMobileMenuOpen(false);
   };
 
   return (
@@ -167,50 +138,6 @@ export function Navbar() {
               )}
             </button>
 
-            {/* Profile (Logged In) vs Sign In (Logged Out) - Desktop Only */}
-            <div className="hidden md:block">
-              {user ? (
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center space-x-2 p-1.5 rounded-full hover:bg-surface-variant transition-colors min-h-[44px] min-w-[44px]"
-                    aria-label="User Profile Menu"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-primary/15 text-primary flex items-center justify-center font-bold text-xs uppercase font-body border border-primary/20">
-                      {user.email?.charAt(0) || 'U'}
-                    </div>
-                  </button>
-
-                  {userMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-52 bg-surface rounded-2xl border border-outline-variant/60 shadow-lg py-2 z-50 font-body">
-                      <div className="px-4 py-2 border-b border-outline-variant/40">
-                        <span className="block text-[11px] text-outline font-medium">Signed in as</span>
-                        <span className="block text-xs font-semibold text-on-surface truncate">{user.email}</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={handleSignOut}
-                        className="w-full text-left px-4 py-2.5 text-xs font-semibold text-error hover:bg-error-container/20 flex items-center space-x-2 transition-colors"
-                      >
-                        <LogOut className="w-3.5 h-3.5" />
-                        <span>Sign Out</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => openAuthModal('signin')}
-                  className="inline-flex items-center space-x-1.5 bg-primary text-on-primary hover:opacity-90 active:scale-95 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold font-body transition-all shadow-xs min-h-[40px] cursor-pointer"
-                >
-                  <User className="w-4 h-4" />
-                  <span>Sign In</span>
-                </button>
-              )}
-            </div>
-
             {/* Mobile Menu Button (Positioned on the Right next to Cart) */}
             <div className="flex items-center md:hidden">
               <button
@@ -253,38 +180,6 @@ export function Navbar() {
               </Link>
             );
           })}
-
-
-          {/* Mobile Auth Option */}
-          <div className="border-t border-outline-variant/60 pt-3">
-            {user ? (
-              <div className="space-y-2">
-                <div className="px-3 text-xs text-outline font-body">
-                  Signed in as <strong className="text-on-surface">{user.email}</strong>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleSignOut}
-                  className="w-full text-left py-2.5 px-3 rounded-lg text-sm font-semibold text-error hover:bg-error-container/20 flex items-center space-x-2 font-body"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span>Sign Out</span>
-                </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  openAuthModal('signin');
-                }}
-                className="w-full py-2.5 px-3 rounded-lg text-sm font-semibold bg-primary text-on-primary flex items-center justify-center space-x-2 font-body shadow-xs cursor-pointer"
-              >
-                <User className="w-4 h-4" />
-                <span>Sign In / Sign Up</span>
-              </button>
-            )}
-          </div>
         </div>
       )}
     </header>

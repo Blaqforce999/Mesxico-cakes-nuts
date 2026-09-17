@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { INITIAL_PRODUCTS } from '@/lib/data/mock-catalog';
-import { createAdminClient } from '@/lib/supabase/admin';
 import { env } from '@/lib/env';
 import { getEarliestDeliveryDate } from '@/lib/utils';
 
@@ -62,7 +61,6 @@ export async function POST(req: NextRequest) {
     // 1. Authoritative price and lead-time calculation from server-side catalog
     let itemsTotalKobo = 0;
     let maxLeadTimeHours = 24;
-    const validatedItems = [];
 
     for (const item of items) {
       const product = INITIAL_PRODUCTS.find((p) => p.id === item.productId || p.slug === item.productId);
@@ -83,14 +81,6 @@ export async function POST(req: NextRequest) {
       if (product.lead_time_hours > maxLeadTimeHours) {
         maxLeadTimeHours = product.lead_time_hours;
       }
-
-      validatedItems.push({
-        product_id: product.id,
-        quantity: item.quantity,
-        unit_price_kobo: product.price_kobo,
-        custom_message: item.customMessage || null,
-        selected_flavor: item.selectedFlavor || null,
-      });
     }
 
     // 2. Validate lead time strictly
@@ -112,43 +102,7 @@ export async function POST(req: NextRequest) {
     const orderNumber = `MESX-${Date.now().toString(36).toUpperCase()}`;
     const txRef = `mesxico_ord_${orderNumber}_${Math.random().toString(36).substring(2, 8)}`;
 
-    // 3. Persist order into Supabase (if configured)
-    try {
-      const supabase = createAdminClient();
-      const { data: orderRecord, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          order_number: orderNumber,
-          customer_name: customerName,
-          customer_email: customerEmail,
-          customer_phone: customerPhone,
-          delivery_address: deliveryAddress,
-          delivery_date: deliveryDate,
-          delivery_time_slot: deliveryTimeSlot,
-          delivery_notes: deliveryNotes,
-          total_amount_kobo: grandTotalKobo,
-          status: 'pending',
-          payment_status: 'unpaid',
-          flutterwave_ref: txRef,
-        })
-        .select()
-        .single();
-
-      if (!orderError && orderRecord) {
-        // Insert order items
-        await supabase.from('order_items').insert(
-          validatedItems.map((item) => ({
-            ...item,
-            order_id: orderRecord.id,
-          }))
-        );
-      }
-    } catch {
-      // Fallback in case Supabase credentials are test/local preview mode
-      console.warn('Supabase local preview mode: order created in-memory.');
-    }
-
-    // 4. Request hosted payment link from Flutterwave
+    // 3. Request hosted payment link from Flutterwave
     const amountNaira = Math.floor(grandTotalKobo / 100);
     const redirectUrl = `${env.NEXT_PUBLIC_APP_URL}/order/verify?tx_ref=${txRef}&order_number=${orderNumber}`;
 

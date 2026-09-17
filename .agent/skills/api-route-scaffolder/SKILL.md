@@ -12,13 +12,15 @@ Ask: should this be a server action or a route handler?
 
 Server actions are the default for internal writes. Route handlers are for external boundaries.
 
+There is currently no database and no authentication in this app — the catalog is a static in-memory dataset (`lib/data/mock-catalog.ts`) and orders are not persisted. Routes read and validate against that static catalog rather than a database.
+
 ## Route Handler Template
 
     // app/api/<resource>/<action>/route.ts
 
     import { NextRequest, NextResponse } from 'next/server';
     import { z } from 'zod';
-    import { createClient } from '@/lib/supabase/server'; 
+    import { INITIAL_PRODUCTS } from '@/lib/data/mock-catalog';
 
     const inputSchema = z.object({
       // Describe every field you expect from the client.
@@ -39,30 +41,19 @@ Server actions are the default for internal writes. Route handlers are for exter
           );
         }
 
-        // 2. Authenticate if the route requires it (Using Supabase Auth).
-        const supabase = await createClient();
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (!session) {
+        // 2. Look up and validate against the static catalog (authoritative pricing lives server-side, never trust client-sent prices).
+        const product = INITIAL_PRODUCTS.find((p) => p.id === parsed.data.productId);
+        if (!product) {
           return NextResponse.json<Failure>(
-            { ok: false, error: { code: 'unauthorized', message: 'Please sign in.' } },
-            { status: 401 }
+            { ok: false, error: { code: 'not_found', message: 'Product not found.' } },
+            { status: 404 }
           );
         }
 
-        // 3. Authorize: does this user own the resource they are trying to touch?
-        //    Supabase RLS handles this at the database level, but explicit checks here prevent unnecessary DB calls.
+        // 3. Do the work. Keep this block small; extract to lib/ if it gets long.
+        const result = { /* ... */ };
 
-        // 4. Do the work. Keep this block small; extract to lib/ if it gets long.
-        const { data: result, error: dbError } = await supabase
-            .from('table_name')
-            .insert({ ...parsed.data, user_id: session.user.id })
-            .select()
-            .single();
-            
-        if (dbError) throw dbError;
-
-        // 5. Return a structured success response.
+        // 4. Return a structured success response.
         return NextResponse.json<Success<typeof result>>({ ok: true, data: result });
       } catch (error) {
         console.error('api.<resource>.<action>.failed', { error });
@@ -77,24 +68,22 @@ Server actions are the default for internal writes. Route handlers are for exter
 
 **Always validate with zod.** The request body, query params, and path params all come from outside and cannot be trusted. Even if TypeScript thinks it knows the shape, zod is what actually enforces it at runtime.
 
-**Always authenticate before authorizing.** Check the session exists, then rely on Supabase Row Level Security (RLS) to enforce that the session has permission to do the thing. 
+**Never trust client-sent prices or product data.** Always re-derive totals and lead times from the static catalog on the server, as `app/api/checkout/route.ts` does.
 
 **Always return a consistent envelope.** Success is `{ ok: true, data }`. Failure is `{ ok: false, error: { code, message } }`. The client parses the same shape everywhere, which keeps error handling simple.
 
-**Never return raw error messages.** Log the real error on the server, return a sanitized message to the client. A Supabase PostgREST error message might reveal the database schema or the structure of your query. A stack trace is even worse.
+**Never return raw error messages.** Log the real error on the server, return a sanitized message to the client. A stack trace leaking to the client is a liability.
 
 **Use proper HTTP status codes.**
 - `200` for success.
 - `201` for resource creation if you want to be precise.
 - `400` for validation errors (client sent garbage).
-- `401` for unauthenticated (no session).
-- `403` for unauthorized (session exists but lacks permission).
 - `404` for resource not found.
 - `409` for conflicts (duplicate slug, duplicate order).
 - `429` for rate limit hits.
 - `500` for server errors.
 
-**Rate limit public endpoints.** Anything reachable without a session must have a rate limit. Lean on it for login, password reset, and order creation on the public checkout page.
+**Rate limit public endpoints.** Anything reachable without a session must have a rate limit. Lean on it for order creation on the public checkout page.
 
 **Log structured data, not strings.** Structured logs can be queried; strings can only be grep'd.
 
@@ -106,8 +95,6 @@ Server actions are the default for internal writes. Route handlers are for exter
 
     import { z } from 'zod';
     import { revalidateTag } from 'next/cache';
-    import { redirect } from 'next/navigation';
-    import { createClient } from '@/lib/supabase/server';
 
     const inputSchema = z.object({
       // ...
@@ -119,25 +106,12 @@ Server actions are the default for internal writes. Route handlers are for exter
 
     export async function createSomething(formData: FormData): Promise<ActionResult> {
       try {
-        const supabase = await createClient();
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (!session) {
-          return { ok: false, error: { code: 'unauthorized', message: 'Please sign in.' } };
-        }
-
         const parsed = inputSchema.safeParse(Object.fromEntries(formData));
         if (!parsed.success) {
           return { ok: false, error: { code: 'invalid_input', message: 'Please check your entries.' } };
         }
 
-        const { data: created, error: dbError } = await supabase
-          .from('something')
-          .insert({ ...parsed.data, user_id: session.user.id })
-          .select()
-          .single();
-
-        if (dbError) throw dbError;
+        const created = { ...parsed.data };
 
         revalidateTag('somethings');
         return { ok: true, data: created };
@@ -151,13 +125,13 @@ Server actions that redirect on success do so at the end with `redirect(...)`. A
 
 ## Idempotency
 
-Any route that creates something paid for must be idempotent. See `skills/flutterwave-integration/SKILL.md` for the pattern using unique constraints. Do not try to implement idempotency with application-level locking; the PostgreSQL database is the source of truth.
+Any route that creates something paid for must be idempotent. See `skills/flutterwave-integration/SKILL.md` for the pattern. If order/payment persistence is introduced later, idempotency should be enforced with a unique constraint at the storage layer, not application-level locking.
 
 ## Common Mistakes
 
 - Skipping zod validation and trusting TypeScript. TypeScript does not run at runtime.
-- Bypassing Row Level Security by mistakenly using the `SUPABASE_SERVICE_ROLE_KEY` in standard client requests.
+- Trusting a price, quantity, or product name sent from the client instead of re-deriving it from the static catalog.
 - Using a `GET` for a mutation. Stick to REST conventions: `POST` creates, `PATCH` updates, `DELETE` deletes, `GET` reads.
-- Returning raw Supabase errors or exception messages.
+- Returning raw error or exception messages to the client.
 - Forgetting to `revalidateTag` or `revalidatePath` after a server action mutates data. The cache will serve stale data until you do.
 - Putting heavy business logic inline in the route handler. If it is more than a few lines, move it to `lib/`.

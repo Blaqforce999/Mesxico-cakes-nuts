@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAdminClient } from '@/lib/supabase/admin';
 import { env } from '@/lib/env';
 
 export async function POST(req: NextRequest) {
@@ -67,62 +66,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'Transaction unverified' }, { status: 200 });
     }
 
-    // 3. Atomically update Order and insert into Payments table
-    try {
-      const supabase = createAdminClient();
-
-      // Find order by flutterwave_ref
-      const { data: order, error: findError } = await supabase
-        .from('orders')
-        .select('*')
-        .eq('flutterwave_ref', txRef)
-        .single();
-
-      if (findError || !order) {
-        console.warn('Order not found for tx_ref:', txRef);
-        return NextResponse.json({ ok: true, message: 'Order reference not found' });
-      }
-
-      // Check amount matching (converted from kobo to naira)
-      const expectedNaira = Math.floor(order.total_amount_kobo / 100);
-      if (Math.abs(flwAmount - expectedNaira) > 1) {
-        console.error('Amount mismatch detected!', { flwAmount, expectedNaira, orderId: order.id });
-        return NextResponse.json({ ok: false, error: 'Amount mismatch' }, { status: 200 });
-      }
-
-      // Idempotently insert payment record using unique constraint on gateway_reference
-      const { error: paymentError } = await supabase.from('payments').insert({
-        order_id: order.id,
-        gateway: 'flutterwave',
-        gateway_reference: String(transactionId),
-        amount_kobo: order.total_amount_kobo,
-        currency: 'NGN',
-        status: 'successful',
-        raw_payload: payload,
-      });
-
-      // PostgreSQL error code 23505 = unique violation (duplicate webhook delivery)
-      if (paymentError) {
-        if (paymentError.code === '23505' || paymentError.message?.includes('duplicate key')) {
-          console.info('Webhook already processed for gateway reference:', transactionId);
-          return NextResponse.json({ ok: true, message: 'Already processed' });
-        }
-        throw paymentError;
-      }
-
-      // Update order status to paid
-      await supabase
-        .from('orders')
-        .update({
-          status: 'paid',
-          payment_status: 'paid',
-        })
-        .eq('id', order.id);
-
-      console.info(`Order ${order.order_number} marked as paid successfully!`);
-    } catch (dbErr) {
-      console.error('Database update failed in webhook:', dbErr);
-    }
+    console.info(`Payment verified for tx_ref ${txRef}`, { transactionId, flwAmount, flwCurrency });
 
     return NextResponse.json({ ok: true, message: 'Webhook processed' });
   } catch (err) {

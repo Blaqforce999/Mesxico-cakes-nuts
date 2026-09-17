@@ -117,7 +117,7 @@ If the verify API call fails (network error, timeout, 5xx), do not mark the orde
 
 ## Webhook Handling
 
-The webhook handler lives at `app/api/webhooks/flutterwave/route.ts`. See `resources/webhook-handler.ts` in this skill folder for a reference implementation. Copy it into the project and adapt to the current Supabase schema; do not reinvent it.
+The webhook handler lives at `app/api/webhooks/flutterwave/route.ts`. See `resources/webhook-handler.ts` in this skill folder for a reference implementation. Copy it into the project and adapt it to the current data layer (currently no database — verified payments are logged only); do not reinvent it.
 
 The handler must:
 1. Verify the `verif-hash` header equals `FLUTTERWAVE_SECRET_HASH`. Reject with 401 if not.

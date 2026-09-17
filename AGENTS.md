@@ -13,8 +13,8 @@ Mesxico Cakes and Nuts is a direct-to-consumer (D2C) e-commerce web platform for
 |---|---|
 | Framework | Next.js 15 (App Router) |
 | Language | TypeScript (Strict Mode) |
-| Database & Auth | Supabase (PostgreSQL, Supabase Auth, Row Level Security) |
-| Storage | Supabase Storage (Product imagery) |
+| Data | Static in-memory catalog (`lib/data/mock-catalog.ts`), no external database |
+| Storage | Local `/public` and `/product_images` assets |
 | Payment Gateway | Flutterwave Standard Checkout API |
 | Styling | Tailwind CSS + CSS Custom Properties (Design Tokens) |
 | Validation | Zod |
@@ -41,7 +41,7 @@ Mesxico Cakes and Nuts is a direct-to-consumer (D2C) e-commerce web platform for
     │   │   ├── cart/page.tsx               # Cart review & date-time scheduling
     │   │   └── order/verify/page.tsx       # Untrusted post-redirect display
     │   ├── (admin)/
-    │   │   ├── layout.tsx                  # Admin authenticated layout 
+    │   │   ├── layout.tsx                  # Admin layout
     │   │   ├── orders/page.tsx             # Order fulfillment management
     │   │   └── inventory/page.tsx          # Stock and catalog management
     │   └── api/
@@ -54,16 +54,13 @@ Mesxico Cakes and Nuts is a direct-to-consumer (D2C) e-commerce web platform for
     │   ├── checkout/                       # Date selector, cart drawer
     │   └── shared/                         # Navbar, footer, notifications
     ├── lib/
-    │   ├── supabase/
-    │   │   ├── client.ts                   # Client-side Supabase client
-    │   │   ├── server.ts                   # Server-side Supabase client
-    │   │   └── admin.ts                    # Service-role Supabase client
+    │   ├── data/mock-catalog.ts            # Static product catalog
     │   ├── flutterwave.ts                  # Flutterwave API helper 
     │   ├── env.ts                          # Zod-validated environment config
     │   └── utils.ts                        # Currency, date formatting
     ├── skills/                             # Agent domain execution packages
     ├── workflows/                          # Feature scaffolding runbooks
-    └── types/                              # Supabase database types 
+    └── types/                              # Domain types (Product, Order, etc.)
 
 ---
 

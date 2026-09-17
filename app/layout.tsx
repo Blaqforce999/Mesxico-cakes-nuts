@@ -4,7 +4,6 @@ import { Navbar } from '@/components/shared/Navbar';
 import { Footer } from '@/components/shared/Footer';
 import { CartDrawer } from '@/components/checkout/CartDrawer';
 import { ProductDetailModal } from '@/components/storefront/ProductDetailModal';
-import { AuthModal } from '@/components/shared/AuthModal';
 import { FloatingActions } from '@/components/shared/FloatingActions';
 import { LoadingScreen } from '@/components/shared/LoadingScreen';
 
@@ -38,7 +37,6 @@ export default function RootLayout({
         <main className="flex-1 overflow-x-clip w-full">{children}</main>
         <CartDrawer />
         <ProductDetailModal />
-        <AuthModal />
         <FloatingActions />
         <Footer />
       </body>

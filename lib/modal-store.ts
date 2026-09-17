@@ -9,13 +9,6 @@ interface ModalState {
   isProductModalOpen: boolean;
   openProductModal: (product: Product) => void;
   closeProductModal: () => void;
-
-  // Auth Modal (Sign In / Sign Up)
-  isAuthModalOpen: boolean;
-  authModalMode: 'signin' | 'signup';
-  openAuthModal: (mode?: 'signin' | 'signup') => void;
-  closeAuthModal: () => void;
-  setAuthModalMode: (mode: 'signin' | 'signup') => void;
 }
 
 export const useModalStore = create<ModalState>((set) => ({
@@ -35,18 +28,5 @@ export const useModalStore = create<ModalState>((set) => ({
     if (typeof window !== 'undefined' && window.location.pathname.startsWith('/product/')) {
       window.history.pushState(null, '', '/');
     }
-  },
-
-  // Auth Modal
-  isAuthModalOpen: false,
-  authModalMode: 'signin',
-  openAuthModal: (mode = 'signin') => {
-    set({ isAuthModalOpen: true, authModalMode: mode });
-  },
-  closeAuthModal: () => {
-    set({ isAuthModalOpen: false });
-  },
-  setAuthModalMode: (mode: 'signin' | 'signup') => {
-    set({ authModalMode: mode });
   },
 }));

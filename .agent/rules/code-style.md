@@ -18,7 +18,7 @@ Strict mode is on. Do not disable `strict`, `noImplicitAny`, or `strictNullCheck
 - Hooks start with `use` and live in `hooks/` or alongside the component that uses them if scoped.
 - Utility functions are `camelCase` in `camelCase.ts` files.
 - Constants are `SCREAMING_SNAKE_CASE` when they represent fixed configuration values, `camelCase` otherwise.
-- Database models and columns coming from Supabase are strictly typed using the generated `types/supabase.ts` file. Leave database columns in `snake_case` (e.g., `amount_kobo`, `delivery_date`) to match the PostgreSQL schema directly.
+- Domain models are strictly typed via `types/database.ts`. Keep field names in `snake_case` (e.g., `amount_kobo`, `delivery_date`) for consistency with the existing catalog and order shapes.
 - Boolean variables read as yes/no questions: `isLoading`, `hasError`, `canPublish`, not `loading`, `error`, `publish`.
 
 ## File Organization
