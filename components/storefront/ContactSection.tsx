@@ -29,7 +29,7 @@ function TikTokIcon({ className = 'w-4 h-4' }: { className?: string }) {
 
 export function ContactSection() {
   return (
-    <section id="contact" className="pt-10 sm:pt-14 pb-16 sm:pb-20 bg-surface scroll-mt-20 relative">
+    <section id="contact" className="pt-14 sm:pt-[78px] pb-[90px] sm:pb-28 bg-surface scroll-mt-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 space-y-1.5">
@@ -106,10 +106,10 @@ export function ContactSection() {
                       </div>
                       <div className="text-left">
                         <span className="font-body font-bold text-xs sm:text-sm block tracking-wide leading-tight">
-                          CHAT NOW ON WHATSAPP
+                          +234 7030420150
                         </span>
                         <span className="text-[11px] text-white/95 font-body block">
-                          +234 7030420150 &bull; (Fastest Response for Orders)
+                          Fastest Response for Orders
                         </span>
                       </div>
                     </div>

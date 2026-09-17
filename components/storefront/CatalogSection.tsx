@@ -118,7 +118,7 @@ export function CatalogSection({ products }: CatalogSectionProps) {
   });
 
   return (
-    <section id="catalog" className="py-10 sm:py-14 bg-surface-variant scroll-mt-20 relative">
+    <section id="catalog" className="py-14 sm:py-[78px] bg-surface-variant scroll-mt-20 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">

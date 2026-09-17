@@ -72,24 +72,24 @@ export default async function HomePage() {
           ========================================================================= */}
       <section
         id="hero"
-        className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center overflow-hidden bg-background pt-8 pb-20 sm:pb-24 lg:pb-28 scroll-mt-20"
+        className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center overflow-hidden bg-background pt-[45px] pb-28 sm:pb-[134px] lg:pb-[157px] scroll-mt-20"
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 w-full my-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div className="lg:col-span-7 text-center lg:text-left">
 
               <h1 className="font-display font-medium text-4xl sm:text-5xl lg:text-6xl text-on-background tracking-tight leading-[1.15]">
                 Good treats are meant to be{' '}
                 <span className="text-primary">enjoyed.</span>
               </h1>
 
-              <p className="text-base text-on-surface-variant font-body max-w-md mx-auto lg:mx-0 leading-relaxed">
+              <p className="mt-4 text-base text-on-surface-variant font-body max-w-md mx-auto lg:mx-0 leading-relaxed">
                 Mesxico brings you delicious treats and satisfying snacks made for everyday cravings, special moments, and everything in between.
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 mt-8 sm:mt-12">
                 <a
                   href="#catalog"
                   className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-primary text-on-primary hover:bg-on-primary-container active:scale-[0.98] font-body font-semibold px-7 py-3.5 rounded-full text-base min-h-[48px] shadow-sm transition-colors duration-200"
@@ -107,42 +107,43 @@ export default async function HomePage() {
               </div>
 
               {/* Trust Value Badges */}
-              <div className="!mt-6 pt-0 max-w-lg mx-auto lg:mx-0 grid grid-cols-1 sm:grid-cols-[1fr_1fr_1.35fr] gap-2.5 sm:gap-3">
-                <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary mb-1.5 sm:mb-2">
-                    <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
+              <div className="mt-6 sm:mt-8 mx-auto lg:mx-0 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-6">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-[47px] h-[47px] sm:w-[52px] sm:h-[52px] rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary mb-1.5 sm:mb-2">
+                    <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <h4 className="font-semibold text-xs sm:text-sm font-body text-on-surface leading-snug whitespace-nowrap">
+                  <h4 className="font-semibold text-[16px] sm:text-[18px] font-body text-on-surface leading-snug whitespace-nowrap">
                     Made Fresh Daily
                   </h4>
-                  <p className="text-[10px] sm:text-xs text-on-surface-variant font-body mt-0.5 leading-relaxed">
-                    Locked-in flavor and ultimate crunch.
+                  <p className="text-sm sm:text-base text-on-surface-variant font-body mt-0.5 leading-relaxed">
+                    Full flavor, every bite.<br />
+                    Fresh and crunchy.
                   </p>
                 </div>
 
-                <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-secondary/15 flex-shrink-0 flex items-center justify-center text-secondary mb-1.5 sm:mb-2">
-                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-[47px] h-[47px] sm:w-[52px] sm:h-[52px] rounded-full bg-secondary/15 flex-shrink-0 flex items-center justify-center text-secondary mb-1.5 sm:mb-2">
+                    <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <h4 className="font-semibold text-xs sm:text-sm font-body text-on-surface leading-snug whitespace-nowrap">
+                  <h4 className="font-semibold text-[16px] sm:text-[18px] font-body text-on-surface leading-snug whitespace-nowrap">
                     Safely Packaged
                   </h4>
-                  <p className="text-[10px] sm:text-xs text-on-surface-variant font-body mt-0.5 leading-relaxed">
-                    Hygienically sealed for your peace of mind.
+                  <p className="text-sm sm:text-base text-on-surface-variant font-body mt-0.5 leading-relaxed">
+                    Hygienically sealed for<br />
+                    your peace of mind.
                   </p>
                 </div>
 
-                <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary mb-1.5 sm:mb-2">
-                    <Ribbon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-[47px] h-[47px] sm:w-[52px] sm:h-[52px] rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary mb-1.5 sm:mb-2">
+                    <Ribbon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <h4 className="font-semibold text-xs sm:text-sm font-body text-on-surface leading-snug whitespace-nowrap">
+                  <h4 className="font-semibold text-[16px] sm:text-[18px] font-body text-on-surface leading-snug whitespace-nowrap">
                     Premium Ingredients
                   </h4>
-                  <p className="text-[10px] sm:text-xs text-on-surface-variant font-body mt-0.5 leading-relaxed">
-                    High-quality ingredients for a rich{' '}
-                    <br className="hidden sm:inline" />
-                    and yummy taste in every bite.
+                  <p className="text-sm sm:text-base text-on-surface-variant font-body mt-0.5 leading-relaxed">
+                    Quality ingredients for<br />
+                    a richer, tastier bite.
                   </p>
                 </div>
               </div>
@@ -167,7 +168,7 @@ export default async function HomePage() {
           ========================================================================= */}
       <section
         style={{ backgroundColor: 'var(--color-surface-variant)' }}
-        className="pt-7 pb-8 sm:pb-10 relative"
+        className="pt-[39px] pb-[45px] sm:pb-14 relative"
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
@@ -222,7 +223,7 @@ export default async function HomePage() {
       {/* =========================================================================
           3. SPECIALITY SECTION — White/light background, circular food images
           ========================================================================= */}
-      <section className="pt-10 pb-10 sm:pt-14 sm:pb-14 bg-surface relative scroll-mt-20">
+      <section className="pt-14 pb-14 sm:pt-[78px] sm:pb-[78px] bg-surface relative scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
           {/* Script tagline + Bold heading */}
           <ScrollReveal>
@@ -287,7 +288,7 @@ export default async function HomePage() {
       {/* =========================================================================
           5. ABOUT US SECTION
           ========================================================================= */}
-      <section id="about" className="py-10 sm:py-14 bg-surface scroll-mt-20 relative">
+      <section id="about" className="py-14 sm:py-[78px] bg-surface scroll-mt-20 relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 sm:gap-16 items-center">
             {/* Visual Photo Collage */}
@@ -354,7 +355,7 @@ export default async function HomePage() {
           ========================================================================= */}
       <section
         style={{ backgroundColor: 'var(--color-surface-variant)' }}
-        className="pt-10 sm:pt-14 pb-12 sm:pb-16 relative"
+        className="pt-14 sm:pt-[78px] pb-[67px] sm:pb-[90px] relative"
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 relative z-10">
           <ScrollReveal>

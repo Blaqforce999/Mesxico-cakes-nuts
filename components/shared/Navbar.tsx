@@ -127,15 +127,18 @@ export function Navbar() {
             <button
               type="button"
               onClick={openCart}
-              className="relative p-2.5 rounded-full text-on-surface hover:bg-surface-variant hover:text-primary transition-all min-h-[44px] min-w-[44px] flex items-center justify-center active:scale-95"
+              className="flex items-center justify-center gap-1.5 rounded-full text-on-surface hover:bg-surface-variant hover:text-primary transition-all min-h-[44px] min-w-[44px] p-2.5 md:pl-3.5 md:pr-4 active:scale-95"
               aria-label={`Shopping cart with ${itemCount} items`}
             >
-              <ShoppingBag className="w-5 h-5 text-on-surface" />
-              {itemCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 inline-flex items-center justify-center bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full font-body shadow-xs animate-pulse">
-                  {itemCount}
-                </span>
-              )}
+              <span className="relative flex items-center justify-center">
+                <ShoppingBag className="w-5 h-5 text-on-surface" />
+                {itemCount > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full font-body shadow-xs animate-pulse">
+                    {itemCount}
+                  </span>
+                )}
+              </span>
+              <span className="hidden md:inline text-sm font-semibold font-body">Cart</span>
             </button>
 
             {/* Mobile Menu Button (Positioned on the Right next to Cart) */}
