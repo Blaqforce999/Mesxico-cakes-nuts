@@ -107,7 +107,7 @@ export default async function HomePage() {
               </div>
 
               {/* Trust Value Badges */}
-              <div className="mt-6 sm:mt-8 mx-auto lg:mx-0 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-6">
+              <div className="hidden sm:grid sm:mt-8 mx-auto lg:mx-0 sm:grid-cols-3 gap-2.5 sm:gap-6">
                 <div className="flex flex-col items-center text-center">
                   <div className="w-[47px] h-[47px] sm:w-[52px] sm:h-[52px] rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary mb-1.5 sm:mb-2">
                     <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
