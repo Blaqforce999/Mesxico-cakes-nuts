@@ -64,7 +64,7 @@ export function LoadingScreen() {
         }}
       >
         <Image
-          src="/Logo.png"
+          src="/logo.png"
           alt="Mesxico Cakes and Nuts"
           fill
           className="object-contain"

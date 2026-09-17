@@ -16,7 +16,7 @@ export function Footer() {
           <div className="flex flex-col items-start pt-1">
             <div className="relative h-12 w-32 sm:h-14 sm:w-36">
               <Image
-                src="/Logo.png"
+                src="/logo.png"
                 alt="Mesxico Cakes & Packaged Nuts"
                 fill
                 className="object-contain object-left"

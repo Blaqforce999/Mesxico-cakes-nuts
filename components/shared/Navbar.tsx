@@ -92,7 +92,7 @@ export function Navbar() {
           >
             <div className="relative h-11 sm:h-14 w-24 sm:w-32">
               <Image
-                src="/Logo.png"
+                src="/logo.png"
                 alt="Mesxico Cakes and Nuts"
                 fill
                 sizes="(max-width: 640px) 96px, 128px"
