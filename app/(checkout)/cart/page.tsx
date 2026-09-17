@@ -18,9 +18,6 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 
-// Standard Lagos local delivery fee in kobo: ₦2,500 = 250,000 kobo
-const STANDARD_DELIVERY_FEE_KOBO = 250000;
-
 // The storefront's WhatsApp ordering line, matched to ContactSection / FloatingActions.
 const WHATSAPP_NUMBER = '2347030420150';
 
@@ -37,8 +34,6 @@ export default function CartPage() {
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNotes, setDeliveryNotes] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const grandTotalKobo = totalKobo + (items.length > 0 ? STANDARD_DELIVERY_FEE_KOBO : 0);
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,9 +66,7 @@ export default function CartPage() {
       "Hi Mesxico Cakes & Nuts! I'd like to place an order for:",
       '',
       ...itemLines,
-      `Subtotal: ${formatNaira(totalKobo)}`,
-      `Delivery fee: ${formatNaira(STANDARD_DELIVERY_FEE_KOBO)}`,
-      `Total: ${formatNaira(grandTotalKobo)}`,
+      `Total: ${formatNaira(totalKobo)}`,
       '',
       `Name: ${customerName}`,
       `Phone: ${customerPhone}`,
@@ -291,24 +284,15 @@ export default function CartPage() {
 
               {/* Order Summary Pricing */}
               <div className="pt-4 border-t border-outline-variant/60 space-y-2">
-                <div className="flex justify-between text-sm font-body text-on-surface-variant">
-                  <span>Items Subtotal</span>
-                  <span className="font-semibold text-on-surface">
+                <div className="flex justify-between text-lg font-body font-bold text-on-surface pt-2 border-t border-outline-variant">
+                  <span>Total</span>
+                  <span className="font-display text-2xl text-primary font-bold">
                     {formatNaira(totalKobo)}
                   </span>
                 </div>
-                <div className="flex justify-between text-sm font-body text-on-surface-variant">
-                  <span>Lagos Doorstep Delivery</span>
-                  <span className="font-semibold text-on-surface">
-                    {formatNaira(STANDARD_DELIVERY_FEE_KOBO)}
-                  </span>
-                </div>
-                <div className="flex justify-between text-lg font-body font-bold text-on-surface pt-2 border-t border-outline-variant">
-                  <span>Total Due</span>
-                  <span className="font-display text-2xl text-primary font-bold">
-                    {formatNaira(grandTotalKobo)}
-                  </span>
-                </div>
+                <p className="text-[11px] text-outline font-body">
+                  Delivery fee is not included and will be arranged directly with you.
+                </p>
               </div>
 
               {/* Place Order Now Button */}
@@ -319,7 +303,7 @@ export default function CartPage() {
                 className="w-full min-h-[50px] text-base space-x-2 mt-4"
               >
                 <MessageCircle className="w-5 h-5" />
-                <span>Place Order Now • {formatNaira(grandTotalKobo)}</span>
+                <span>Place Order Now • {formatNaira(totalKobo)}</span>
               </Button>
 
               <div className="flex items-center justify-center space-x-2 text-xs text-outline font-body pt-1">
