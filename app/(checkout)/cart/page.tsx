@@ -3,22 +3,17 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import {
   ShoppingBag,
   Trash2,
   Plus,
   Minus,
-  Calendar,
-  Clock,
-  ArrowRight,
-  ShieldCheck,
+  MessageCircle,
   AlertCircle,
-  Truck,
   ArrowLeft,
 } from 'lucide-react';
 import { useCartStore } from '@/lib/cart/cart-store';
-import { formatNaira, getEarliestDeliveryDate, formatDisplayDate } from '@/lib/utils';
+import { formatNaira } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
@@ -26,31 +21,26 @@ import { Textarea } from '@/components/ui/Textarea';
 // Standard Lagos local delivery fee in kobo: ₦2,500 = 250,000 kobo
 const STANDARD_DELIVERY_FEE_KOBO = 250000;
 
+// The storefront's WhatsApp ordering line, matched to ContactSection / FloatingActions.
+const WHATSAPP_NUMBER = '2347030420150';
+
 export default function CartPage() {
-  const router = useRouter();
   const items = useCartStore((state) => state.items);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
+  const clearCart = useCartStore((state) => state.clearCart);
   const totalKobo = useCartStore((state) => state.getTotalKobo());
-  const leadTimeHours = useCartStore((state) => state.getLeadTimeHours());
-
-  const earliestDate = getEarliestDeliveryDate(leadTimeHours);
 
   // Form State
-  const [deliveryDate, setDeliveryDate] = useState(earliestDate);
-  const [deliveryTimeSlot, setDeliveryTimeSlot] = useState('Morning (9:00 AM - 12:00 PM)');
   const [customerName, setCustomerName] = useState('');
-  const [customerEmail, setCustomerEmail] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNotes, setDeliveryNotes] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const grandTotalKobo = totalKobo + (items.length > 0 ? STANDARD_DELIVERY_FEE_KOBO : 0);
-  const hasCakes = items.some((i) => i.product.category === 'cakes');
 
-  const handleCheckout = async (e: React.FormEvent) => {
+  const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
 
@@ -59,56 +49,42 @@ export default function CartPage() {
       return;
     }
 
-    if (!deliveryDate || deliveryDate < earliestDate) {
-      setErrorMessage(
-        `Selected delivery date must be on or after ${formatDisplayDate(earliestDate)} due to order preparation lead times.`
-      );
+    if (!customerName || !customerPhone || !deliveryAddress) {
+      setErrorMessage('Please fill in your name, phone number, and delivery address.');
       return;
     }
 
-    try {
-      setIsSubmitting(true);
+    const itemLines = items
+      .map((item, index) => {
+        const lineTotal = formatNaira(item.product.price_kobo * item.quantity);
+        const flavor = item.selectedFlavor ? ` (Flavor: ${item.selectedFlavor})` : '';
+        const note = item.customMessage ? ` [Note: ${item.customMessage}]` : '';
+        return `${index + 1}. ${item.product.name}${flavor}${note} — Qty: ${item.quantity} — ${lineTotal}`;
+      })
+      .join('\n');
 
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items: items.map((i) => ({
-            productId: i.product.id,
-            quantity: i.quantity,
-            customMessage: i.customMessage || null,
-            selectedFlavor: i.selectedFlavor || null,
-          })),
-          customerName,
-          customerEmail,
-          customerPhone,
-          deliveryAddress,
-          deliveryDate,
-          deliveryTimeSlot,
-          deliveryNotes: deliveryNotes || null,
-        }),
-      });
+    const messageLines = [
+      'Hello Mesxico Cakes & Nuts! I would like to place an order for:',
+      '',
+      itemLines,
+      '',
+      `Items Subtotal: ${formatNaira(totalKobo)}`,
+      `Delivery Fee: ${formatNaira(STANDARD_DELIVERY_FEE_KOBO)}`,
+      `Total: ${formatNaira(grandTotalKobo)}`,
+      '',
+      `Name: ${customerName}`,
+      `Phone: ${customerPhone}`,
+      `Delivery Address: ${deliveryAddress}`,
+    ];
 
-      const result = await response.json();
-
-      if (!response.ok || !result.ok) {
-        throw new Error(result.error?.message || 'Failed to initialize payment.');
-      }
-
-      // Redirect to Flutterwave hosted payment link
-      if (result.data?.paymentLink) {
-        window.location.href = result.data.paymentLink;
-      } else {
-        // Direct to verify page for testing/local preview
-        router.push(`/order/verify?order_number=${result.data?.orderNumber}`);
-      }
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Something went wrong. Please try again.';
-      setErrorMessage(message);
-      setIsSubmitting(false);
+    if (deliveryNotes) {
+      messageLines.push(`Notes: ${deliveryNotes}`);
     }
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(messageLines.join('\n'))}`;
+
+    window.open(whatsappUrl, '_blank');
+    clearCart();
   };
 
   if (items.length === 0) {
@@ -148,7 +124,7 @@ export default function CartPage() {
             <span>Continue Shopping</span>
           </Link>
           <h1 className="font-display font-bold text-3xl sm:text-4xl text-on-surface mt-2">
-            Review Cart &amp; Schedule Delivery
+            Review Your Cart
           </h1>
         </div>
 
@@ -159,27 +135,9 @@ export default function CartPage() {
           </div>
         )}
 
-        <form onSubmit={handleCheckout} className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Left Column: Cart Items & Lead Time Notice */}
+        <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* Left Column: Cart Items */}
           <div className="lg:col-span-7 space-y-6">
-            {/* Lead Time Notice Banner */}
-            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 space-y-2 font-body">
-              <div className="flex items-center space-x-2 font-bold text-amber-900 text-sm">
-                <Calendar className="w-4 h-4 text-amber-700" />
-                <span>
-                  {hasCakes
-                    ? '48-Hour Advance Notice Enforced (Cake in Cart)'
-                    : '24-Hour Next-Day Dispatch (Nuts Only)'}
-                </span>
-              </div>
-              <p className="text-xs text-amber-800 leading-relaxed">
-                {hasCakes
-                  ? 'Custom cakes are freshly baked from scratch for your special day. The earliest available date for this order is '
-                  : 'Your gourmet nuts are ready for swift dispatch. Earliest available date is '}
-                <strong>{formatDisplayDate(earliestDate)}</strong>.
-              </p>
-            </div>
-
             {/* Cart Items List */}
             <div className="bg-surface rounded-2xl border border-outline-variant/60 p-5 space-y-4 shadow-xs">
               <h2 className="font-display font-semibold text-lg text-on-surface pb-3 border-b border-outline-variant/40">
@@ -285,61 +243,10 @@ export default function CartPage() {
             </div>
           </div>
 
-          {/* Right Column: Delivery Scheduling & Contact Info */}
+          {/* Right Column: Contact Info & Order Summary */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-surface rounded-2xl border border-outline-variant/60 p-6 space-y-5 shadow-xs">
               <h2 className="font-display font-semibold text-lg text-on-surface pb-3 border-b border-outline-variant/40">
-                Delivery Scheduling
-              </h2>
-
-              {/* Delivery Date Picker (Enforces Lead Time) */}
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="delivery-date"
-                  className="block text-sm font-semibold text-on-surface font-body"
-                >
-                  Select Delivery Date <span className="text-error">*</span>
-                </label>
-                <div className="relative">
-                  <input
-                    type="date"
-                    id="delivery-date"
-                    required
-                    min={earliestDate}
-                    value={deliveryDate}
-                    onChange={(e) => setDeliveryDate(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-lg border border-outline-variant bg-surface text-on-surface font-body text-base focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-                <p className="text-[11px] text-outline font-body">
-                  Earliest selectable date: {formatDisplayDate(earliestDate)}
-                </p>
-              </div>
-
-              {/* Time Slot Selector */}
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="delivery-time"
-                  className="block text-sm font-semibold text-on-surface font-body"
-                >
-                  Preferred Delivery Window <span className="text-error">*</span>
-                </label>
-                <select
-                  id="delivery-time"
-                  value={deliveryTimeSlot}
-                  onChange={(e) => setDeliveryTimeSlot(e.target.value)}
-                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-lg border border-outline-variant bg-surface text-on-surface font-body text-base focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="Morning (9:00 AM - 12:00 PM)">
-                    Morning (9:00 AM - 12:00 PM)
-                  </option>
-                  <option value="Afternoon (1:00 PM - 5:00 PM)">
-                    Afternoon (1:00 PM - 5:00 PM)
-                  </option>
-                </select>
-              </div>
-
-              <h2 className="font-display font-semibold text-lg text-on-surface pt-4 pb-2 border-b border-outline-variant/40">
                 Customer &amp; Address Details
               </h2>
 
@@ -351,24 +258,14 @@ export default function CartPage() {
                 onChange={(e) => setCustomerName(e.target.value)}
               />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input
-                  label="Email Address"
-                  type="email"
-                  required
-                  placeholder="name@example.com"
-                  value={customerEmail}
-                  onChange={(e) => setCustomerEmail(e.target.value)}
-                />
-                <Input
-                  label="Phone Number"
-                  type="tel"
-                  required
-                  placeholder="08012345678"
-                  value={customerPhone}
-                  onChange={(e) => setCustomerPhone(e.target.value)}
-                />
-              </div>
+              <Input
+                label="Phone Number"
+                type="tel"
+                required
+                placeholder="08012345678"
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+              />
 
               <Textarea
                 label="Full Delivery Address"
@@ -407,25 +304,21 @@ export default function CartPage() {
                     {formatNaira(grandTotalKobo)}
                   </span>
                 </div>
-                <p className="text-[11px] text-outline text-right font-body">
-                  Internal storage: {grandTotalKobo} kobo
-                </p>
               </div>
 
-              {/* Pay Now Button */}
+              {/* Place Order Now Button */}
               <Button
                 type="submit"
                 variant="primary"
                 size="lg"
-                isLoading={isSubmitting}
                 className="w-full min-h-[50px] text-base space-x-2 mt-4"
               >
-                <ShieldCheck className="w-5 h-5" />
-                <span>Pay Now with Flutterwave • {formatNaira(grandTotalKobo)}</span>
+                <MessageCircle className="w-5 h-5" />
+                <span>Place Order Now • {formatNaira(grandTotalKobo)}</span>
               </Button>
 
               <div className="flex items-center justify-center space-x-2 text-xs text-outline font-body pt-1">
-                <span>🔒 256-bit encrypted secure payment</span>
+                <span>You&apos;ll be redirected to WhatsApp to confirm your order</span>
               </div>
             </div>
           </div>
