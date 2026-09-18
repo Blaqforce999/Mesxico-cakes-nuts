@@ -133,7 +133,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 )}
               </div>
 
-              <h1 className="font-display font-bold text-3xl sm:text-4xl text-on-surface">
+              <h1 className="font-display font-bold text-[27px] sm:text-[33px] leading-[1.2] sm:leading-[1.111] text-on-surface">
                 {product.name}
               </h1>
             </div>

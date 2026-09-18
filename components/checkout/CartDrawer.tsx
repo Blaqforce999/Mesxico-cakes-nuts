@@ -35,7 +35,7 @@ export function CartDrawer() {
           <div className="p-5 border-b border-outline-variant flex items-center justify-between">
             <div className="flex items-center space-x-2.5">
               <ShoppingBag className="w-5 h-5 text-primary" />
-              <h2 className="font-display font-semibold text-xl text-on-surface">
+              <h2 className="font-display font-semibold text-[18px] leading-[1.4] text-on-surface">
                 Your Fresh Cart
               </h2>
               <span className="bg-primary-container text-on-primary-container text-xs font-bold px-2 py-0.5 rounded-full font-body">
@@ -60,7 +60,7 @@ export function CartDrawer() {
                   <ShoppingBag className="w-8 h-8" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-display font-semibold text-lg text-on-surface">
+                  <h3 className="font-body font-semibold text-lg text-on-surface">
                     Your cart is empty
                   </h3>
                   <p className="text-xs text-on-surface-variant max-w-xs font-body">
@@ -96,7 +96,7 @@ export function CartDrawer() {
 
                   <div className="flex-1 flex flex-col justify-between">
                     <div>
-                      <h4 className="font-display font-semibold text-sm text-on-surface line-clamp-1">
+                      <h4 className="font-body font-semibold text-sm text-on-surface line-clamp-1">
                         {item.product.name}
                       </h4>
                       {item.selectedFlavor && (
@@ -188,7 +188,7 @@ export function CartDrawer() {
                 </div>
                 <div className="flex justify-between text-base font-body font-bold text-on-surface pt-2 border-t border-outline-variant/60">
                   <span>Total</span>
-                  <span className="font-display text-xl text-primary font-bold">
+                  <span className="font-body text-xl text-primary font-bold">
                     {formatNaira(totalKobo)}
                   </span>
                 </div>

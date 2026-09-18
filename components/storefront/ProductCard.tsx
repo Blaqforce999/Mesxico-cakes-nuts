@@ -50,7 +50,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <div className="p-5 flex flex-col flex-grow justify-between space-y-4">
         <div>
           <div className="block">
-            <h3 className="font-display font-semibold text-lg text-on-surface group-hover:text-primary transition-colors line-clamp-1">
+            <h3 className="font-body font-semibold text-lg text-on-surface group-hover:text-primary transition-colors line-clamp-1">
               {product.name}
             </h3>
           </div>
@@ -62,7 +62,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="pt-2 border-t border-outline-variant/40 flex items-center justify-between">
           <div>
             <span className="text-[11px] text-outline font-body block leading-none">Price</span>
-            <span className="font-display font-bold text-xl text-primary mt-0.5 block">
+            <span className="font-body font-bold text-xl text-primary mt-0.5 block">
               {formatNaira(product.price_kobo)}
             </span>
           </div>

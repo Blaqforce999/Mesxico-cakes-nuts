@@ -38,6 +38,7 @@ const OUTPUT_CSS_FILE = path.resolve(__dirname, cliOptions.out || 'tokens.css');
  */
 const FONT_FALLBACKS = {
   Fraunces: "'Fraunces', Georgia, serif",
+  'Fredoka One': "'Fredoka One', Georgia, serif",
   Inter: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
 };
 
@@ -211,7 +212,7 @@ function processTypographyTokens(filePath) {
   const individualVars = [];
   const compositeVars = [];
   const familyVars = [
-    { name: '--font-family-display', value: FONT_FALLBACKS['Fraunces'] },
+    { name: '--font-family-display', value: FONT_FALLBACKS['Fredoka One'] },
     { name: '--font-family-body', value: FONT_FALLBACKS['Inter'] },
   ];
 

@@ -35,7 +35,7 @@ export default function AdminLayout({
                     className="object-cover"
                   />
                 </div>
-                <span className="font-display font-bold text-lg text-on-surface">
+                <span className="font-body font-bold text-lg text-on-surface">
                   Kitchen Fulfillment Admin
                 </span>
                 <span className="inline-flex items-center space-x-1 bg-secondary-container text-on-secondary-container text-[11px] font-bold px-2 py-0.5 rounded-full">

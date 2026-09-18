@@ -92,7 +92,7 @@ export default function CartPage() {
           <ShoppingBag className="w-10 h-10" />
         </div>
         <div className="space-y-2">
-          <h1 className="font-display font-bold text-3xl text-on-surface">
+          <h1 className="font-display font-bold text-[27px] leading-[1.2] text-on-surface">
             Your Cart is Empty
           </h1>
           <p className="text-sm text-on-surface-variant font-body">
@@ -121,7 +121,7 @@ export default function CartPage() {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Continue Shopping</span>
           </Link>
-          <h1 className="font-display font-bold text-3xl sm:text-4xl text-on-surface mt-2">
+          <h1 className="font-display font-bold text-[27px] sm:text-[33px] leading-[1.2] sm:leading-[1.111] text-on-surface mt-2">
             Review Your Cart
           </h1>
         </div>
@@ -138,7 +138,7 @@ export default function CartPage() {
           <div className="lg:col-span-7 space-y-6">
             {/* Cart Items List */}
             <div className="bg-surface rounded-2xl border border-outline-variant/60 p-5 space-y-4 shadow-xs">
-              <h2 className="font-display font-semibold text-lg text-on-surface pb-3 border-b border-outline-variant/40">
+              <h2 className="font-body font-semibold text-lg text-on-surface pb-3 border-b border-outline-variant/40">
                 Order Items ({items.reduce((acc, i) => acc + i.quantity, 0)})
               </h2>
 
@@ -161,7 +161,7 @@ export default function CartPage() {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-display font-semibold text-base text-on-surface truncate">
+                      <h3 className="font-body font-semibold text-base text-on-surface truncate">
                         {item.product.name}
                       </h3>
                       {item.selectedFlavor && (
@@ -180,7 +180,7 @@ export default function CartPage() {
                     </div>
 
                     <div className="flex flex-col items-end space-y-2">
-                      <span className="font-display font-bold text-base text-primary">
+                      <span className="font-body font-bold text-base text-primary">
                         {formatNaira(item.product.price_kobo * item.quantity)}
                       </span>
 
@@ -244,7 +244,7 @@ export default function CartPage() {
           {/* Right Column: Contact Info & Order Summary */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-surface rounded-2xl border border-outline-variant/60 p-6 space-y-5 shadow-xs">
-              <h2 className="font-display font-semibold text-lg text-on-surface pb-3 border-b border-outline-variant/40">
+              <h2 className="font-body font-semibold text-lg text-on-surface pb-3 border-b border-outline-variant/40">
                 Customer &amp; Address Details
               </h2>
 
@@ -286,7 +286,7 @@ export default function CartPage() {
               <div className="pt-4 border-t border-outline-variant/60 space-y-2">
                 <div className="flex justify-between text-lg font-body font-bold text-on-surface pt-2 border-t border-outline-variant">
                   <span>Total</span>
-                  <span className="font-display text-2xl text-primary font-bold">
+                  <span className="font-body text-2xl text-primary font-bold">
                     {formatNaira(totalKobo)}
                   </span>
                 </div>

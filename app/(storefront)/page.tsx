@@ -79,7 +79,7 @@ export default async function HomePage() {
             {/* Left Content */}
             <div className="lg:col-span-7 text-center lg:text-left">
 
-              <h1 className="font-display font-medium text-4xl sm:text-5xl lg:text-6xl text-on-background tracking-tight leading-[1.15]">
+              <h1 className="font-display font-medium text-[33px] sm:text-[44px] lg:text-[55px] text-on-background tracking-tight leading-[1.15]">
                 Good treats are meant to be{' '}
                 <span className="text-primary">enjoyed.</span>
               </h1>
@@ -177,7 +177,7 @@ export default async function HomePage() {
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary shadow-xs">
                   <Gift className="w-7 h-7 sm:w-8 sm:h-8 text-primary" strokeWidth={2} />
                 </div>
-                <h3 className="font-display font-medium text-lg sm:text-xl text-on-surface tracking-tight uppercase">
+                <h3 className="font-body font-medium text-lg sm:text-xl text-on-surface tracking-tight uppercase">
                   Perfect for Any Occasion
                 </h3>
                 <p className="text-sm text-on-surface-variant font-body max-w-[275px] mx-auto leading-relaxed">
@@ -191,7 +191,7 @@ export default async function HomePage() {
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-secondary/15 flex items-center justify-center border-2 border-secondary shadow-xs">
                   <Truck className="w-7 h-7 sm:w-8 sm:h-8 text-secondary" strokeWidth={2} />
                 </div>
-                <h3 className="font-display font-medium text-lg sm:text-xl text-on-surface tracking-tight uppercase">
+                <h3 className="font-body font-medium text-lg sm:text-xl text-on-surface tracking-tight uppercase">
                   Ready When You Are
                 </h3>
                 <p className="text-sm text-on-surface-variant font-body max-w-[275px] mx-auto leading-relaxed">
@@ -205,7 +205,7 @@ export default async function HomePage() {
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary shadow-xs">
                   <Heart className="w-7 h-7 sm:w-8 sm:h-8 text-primary" strokeWidth={2} />
                 </div>
-                <h3 className="font-display font-medium text-lg sm:text-xl text-on-surface tracking-tight uppercase">
+                <h3 className="font-body font-medium text-lg sm:text-xl text-on-surface tracking-tight uppercase">
                   Satisfied Cravings
                 </h3>
                 <p className="text-sm text-on-surface-variant font-body max-w-[275px] mx-auto leading-relaxed">
@@ -228,10 +228,10 @@ export default async function HomePage() {
           {/* Script tagline + Bold heading */}
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-              <span className="font-display italic text-base sm:text-lg text-primary">
+              <span className="font-body italic text-base sm:text-lg text-primary">
                 Fresh From Mesxico
               </span>
-              <h2 className="font-display font-medium text-2xl sm:text-3xl text-on-surface mt-1.5 uppercase tracking-tight">
+              <h2 className="font-display font-medium text-[23px] sm:text-[29px] leading-[1.333] sm:leading-[1.2] text-on-surface mt-1.5 uppercase tracking-tight">
                 Our Speciality
               </h2>
             </div>
@@ -326,7 +326,7 @@ export default async function HomePage() {
               </ScrollReveal>
 
               <ScrollReveal>
-                <h2 className="font-display font-medium text-2xl sm:text-3xl text-on-surface leading-tight">
+                <h2 className="font-display font-medium text-[22px] sm:text-[27px] text-on-surface leading-tight">
                   Baked with Care. Roasted to Perfection.
                 </h2>
               </ScrollReveal>
@@ -360,10 +360,10 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 relative z-10">
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-              <span className="font-display italic text-base sm:text-lg text-primary">
+              <span className="font-body italic text-base sm:text-lg text-primary">
                 Real Reviews
               </span>
-              <h2 className="font-display font-medium text-2xl sm:text-3xl text-on-surface mt-1.5 uppercase tracking-tight">
+              <h2 className="font-display font-medium text-[23px] sm:text-[29px] leading-[1.333] sm:leading-[1.2] text-on-surface mt-1.5 uppercase tracking-tight">
                 What Our Customers Say
               </h2>
             </div>

@@ -26,7 +26,7 @@ export function Footer() {
 
           {/* Column 2: Kitchen & Support */}
           <div className="space-y-2.5">
-            <h4 className="font-display text-base font-semibold text-white">
+            <h4 className="font-body text-base font-semibold text-white">
               Kitchen &amp; Support
             </h4>
             <ul className="space-y-2 text-sm font-body text-outline-variant">
@@ -53,7 +53,7 @@ export function Footer() {
 
           {/* Column 3: Social Media Handles */}
           <div className="space-y-2.5">
-            <h4 className="font-display text-base font-semibold text-white">
+            <h4 className="font-body text-base font-semibold text-white">
               Follow Us
             </h4>
             <p className="text-sm text-outline-variant font-body leading-relaxed">

@@ -147,7 +147,7 @@ export default function AdminOrdersPage() {
       {/* Header & Stats */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="font-display font-bold text-3xl text-on-surface">
+          <h1 className="font-display font-bold text-[27px] leading-[1.2] text-on-surface">
             Baking Schedule &amp; Order Fulfillment
           </h1>
           <p className="text-sm text-on-surface-variant">
@@ -158,11 +158,11 @@ export default function AdminOrdersPage() {
         <div className="flex items-center space-x-3">
           <div className="bg-surface border border-outline-variant px-4 py-2 rounded-xl text-center">
             <span className="text-[11px] uppercase font-bold text-outline block">Total Active Orders</span>
-            <span className="font-display font-bold text-xl text-primary">{orders.length}</span>
+            <span className="font-display font-bold text-[19px] leading-[1.4] text-primary">{orders.length}</span>
           </div>
           <div className="bg-surface border border-outline-variant px-4 py-2 rounded-xl text-center">
             <span className="text-[11px] uppercase font-bold text-outline block">Revenue (kobo)</span>
-            <span className="font-display font-bold text-xl text-secondary">
+            <span className="font-body font-bold text-xl text-secondary">
               {formatNaira(orders.reduce((acc, o) => acc + o.total_amount_kobo, 0))}
             </span>
           </div>
@@ -215,7 +215,7 @@ export default function AdminOrdersPage() {
         {filteredOrders.length === 0 ? (
           <div className="p-12 text-center bg-surface rounded-2xl border border-outline-variant space-y-2">
             <Package className="w-12 h-12 text-outline mx-auto" />
-            <h3 className="font-display font-semibold text-lg text-on-surface">
+            <h3 className="font-body font-semibold text-lg text-on-surface">
               No orders match your criteria
             </h3>
             <p className="text-xs text-on-surface-variant">
@@ -231,7 +231,7 @@ export default function AdminOrdersPage() {
               {/* Order Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-outline-variant/40 gap-3">
                 <div className="flex items-center space-x-3">
-                  <span className="font-display font-bold text-xl text-primary">
+                  <span className="font-display font-bold text-[19px] leading-[1.4] text-primary">
                     {order.order_number}
                   </span>
                   {getStatusBadge(order.status)}
@@ -255,7 +255,7 @@ export default function AdminOrdersPage() {
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                 {/* Left: Items and Custom Cake Notes */}
                 <div className="md:col-span-7 space-y-3">
-                  <h4 className="text-xs uppercase font-bold text-outline tracking-wider">
+                  <h4 className="font-body text-xs uppercase font-bold text-outline tracking-wider">
                     Kitchen Bake Sheet Items
                   </h4>
                   <div className="space-y-3">
@@ -265,7 +265,7 @@ export default function AdminOrdersPage() {
                         className="p-3.5 rounded-xl bg-surface-variant/20 border border-outline-variant/40 space-y-1.5"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="font-display font-semibold text-base text-on-surface">
+                          <span className="font-body font-semibold text-base text-on-surface">
                             {item.quantity}x {item.product_name}
                           </span>
                           <span className="text-xs font-bold text-primary">
@@ -289,7 +289,7 @@ export default function AdminOrdersPage() {
 
                 {/* Right: Customer & Delivery Info */}
                 <div className="md:col-span-5 space-y-3">
-                  <h4 className="text-xs uppercase font-bold text-outline tracking-wider">
+                  <h4 className="font-body text-xs uppercase font-bold text-outline tracking-wider">
                     Customer &amp; Dispatch Details
                   </h4>
                   <div className="text-sm space-y-2 text-on-surface">

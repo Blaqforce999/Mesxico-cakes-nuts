@@ -36,7 +36,7 @@ export function ProductDetailForm({ product }: ProductDetailFormProps) {
     <form onSubmit={handleAddToCart} className="space-y-6 pt-2">
       {/* Price Display */}
       <div className="flex items-baseline space-x-3">
-        <span className="font-display font-bold text-3xl sm:text-4xl text-primary">
+        <span className="font-body font-bold text-3xl sm:text-4xl text-primary">
           {formatNaira(totalPriceKobo)}
         </span>
         {quantity > 1 && (

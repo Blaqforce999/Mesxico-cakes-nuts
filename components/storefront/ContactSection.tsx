@@ -33,7 +33,7 @@ export function ContactSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 space-y-1.5">
-          <h2 className="font-display font-medium text-2xl sm:text-3xl text-on-surface mt-1.5 uppercase tracking-tight">
+          <h2 className="font-display font-medium text-[23px] sm:text-[29px] leading-[1.333] sm:leading-[1.2] text-on-surface mt-1.5 uppercase tracking-tight">
             Quick Answers &amp; Support
           </h2>
           <p className="text-xs sm:text-sm text-on-surface-variant font-body max-w-lg mx-auto leading-relaxed pt-1">

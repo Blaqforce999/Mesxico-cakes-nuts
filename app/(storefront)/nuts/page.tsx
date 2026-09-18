@@ -21,7 +21,7 @@ export default async function NutsPage() {
             <Truck className="w-3.5 h-3.5" />
             <span>Fast Next-Day Doorstep Dispatch</span>
           </div>
-          <h1 className="font-display font-bold text-4xl sm:text-5xl text-on-surface">
+          <h1 className="font-display font-bold text-[33px] sm:text-[44px] leading-[1.111] sm:leading-[1] text-on-surface">
             Gourmet Packaged Nuts &amp; Spreads
           </h1>
           <p className="text-base text-on-surface-variant font-body leading-relaxed">
@@ -39,7 +39,7 @@ export default async function NutsPage() {
         {/* Freshness Badge Box */}
         <div className="mt-16 bg-surface-variant/30 rounded-2xl p-8 border border-outline-variant text-center max-w-2xl mx-auto space-y-3">
           <ShieldCheck className="w-6 h-6 text-secondary mx-auto" />
-          <h3 className="font-display font-semibold text-xl text-on-surface">
+          <h3 className="font-display font-semibold text-[18px] leading-[1.4] text-on-surface">
             The Mesxico Freshness Lock
           </h3>
           <p className="text-sm text-on-surface-variant font-body">

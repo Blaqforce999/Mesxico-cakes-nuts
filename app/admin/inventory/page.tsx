@@ -37,7 +37,7 @@ export default function AdminInventoryPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-display font-bold text-3xl text-on-surface">
+          <h1 className="font-display font-bold text-[27px] leading-[1.2] text-on-surface">
             Catalog &amp; Inventory Management
           </h1>
           <p className="text-sm text-on-surface-variant">
@@ -93,7 +93,7 @@ export default function AdminInventoryPage() {
                         />
                       </div>
                       <div className="min-w-0">
-                        <p className="font-display font-semibold text-on-surface line-clamp-1">
+                        <p className="font-body font-semibold text-on-surface line-clamp-1">
                           {product.name}
                         </p>
                         <p className="text-xs text-outline">{product.package_size || 'Standard pack'}</p>

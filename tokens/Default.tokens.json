@@ -3,7 +3,7 @@
     "display-large": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148583",
           "com.figma.scopes": [
@@ -57,7 +57,7 @@
     "display-medium": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148588",
           "com.figma.scopes": [
@@ -111,7 +111,7 @@
     "display-small": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148593",
           "com.figma.scopes": [
@@ -165,7 +165,7 @@
     "headline-large": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148598",
           "com.figma.scopes": [
@@ -219,7 +219,7 @@
     "headline-medium": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148603",
           "com.figma.scopes": [
@@ -273,7 +273,7 @@
     "headline-small": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148608",
           "com.figma.scopes": [
@@ -327,7 +327,7 @@
     "title-large": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148613",
           "com.figma.scopes": [
@@ -381,7 +381,7 @@
     "title-medium": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148618",
           "com.figma.scopes": [
@@ -435,7 +435,7 @@
     "title-small": {
       "font-family": {
         "$type": "string",
-        "$value": "Fraunces",
+        "$value": "Fredoka One",
         "$extensions": {
           "com.figma.variableId": "VariableID:333:148623",
           "com.figma.scopes": [

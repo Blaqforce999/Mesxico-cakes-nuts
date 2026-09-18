@@ -130,7 +130,7 @@ export function ProductDetailModal() {
               <div>
                 <h2
                   id="modal-product-title"
-                  className="font-display font-bold text-xl sm:text-2xl text-on-surface leading-snug"
+                  className="font-display font-bold text-[18px] sm:text-[22px] text-on-surface leading-snug"
                 >
                   {product.name}
                 </h2>
@@ -138,7 +138,7 @@ export function ProductDetailModal() {
 
               {/* Price */}
               <div className="flex items-baseline space-x-3 pt-1 border-t border-outline-variant/40">
-                <span className="font-display font-bold text-2xl sm:text-3xl text-primary">
+                <span className="font-body font-bold text-2xl sm:text-3xl text-primary">
                   {formatNaira(totalPriceKobo)}
                 </span>
                 {quantity > 1 && (
@@ -196,7 +196,7 @@ export function ProductDetailModal() {
                 >
                   <Minus className="w-3.5 h-3.5" />
                 </button>
-                <span className="font-display font-bold text-base w-6 text-center text-on-surface">
+                <span className="font-body font-bold text-base w-6 text-center text-on-surface">
                   {quantity}
                 </span>
                 <button

@@ -87,7 +87,7 @@ function VerifyOrderContent() {
               <span className="text-xs uppercase font-bold text-outline tracking-wider font-body">
                 Order #{orderNumber}
               </span>
-              <h1 className="font-display font-bold text-2xl sm:text-3xl text-on-surface">
+              <h1 className="font-display font-bold text-[22px] sm:text-[27px] leading-[1.333] sm:leading-[1.2] text-on-surface">
                 Verifying Your Payment
               </h1>
               <p className="text-sm text-on-surface-variant font-body leading-relaxed max-w-md mx-auto">
@@ -112,7 +112,7 @@ function VerifyOrderContent() {
                 Payment Verified &amp; Scheduled!
               </span>
 
-              <h1 className="font-display font-bold text-3xl sm:text-4xl text-on-surface">
+              <h1 className="font-display font-bold text-[27px] sm:text-[33px] leading-[1.2] sm:leading-[1.111] text-on-surface">
                 Thank You For Your Order!
               </h1>
 

@@ -122,10 +122,10 @@ export function CatalogSection({ products }: CatalogSectionProps) {
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="font-display italic text-base sm:text-lg text-primary">
+          <span className="font-body italic text-base sm:text-lg text-primary">
             Fresh From Our Kitchen
           </span>
-          <h2 className="font-display font-medium text-2xl sm:text-3xl text-on-surface mt-1.5 uppercase tracking-tight">
+          <h2 className="font-display font-medium text-[23px] sm:text-[29px] leading-[1.333] sm:leading-[1.2] text-on-surface mt-1.5 uppercase tracking-tight">
             Browse Our Full Catalog
           </h2>
         </div>
