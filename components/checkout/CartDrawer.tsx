@@ -45,7 +45,7 @@ export function CartDrawer() {
             <button
               type="button"
               onClick={closeCart}
-              className="p-2 rounded-full text-on-surface hover:bg-surface-variant min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
+              className="p-2 rounded-full bg-[#F3DDDE66] text-on-surface hover:bg-surface-variant min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
               aria-label="Close cart"
             >
               <X className="w-5 h-5" />
